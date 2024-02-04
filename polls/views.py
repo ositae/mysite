@@ -14,20 +14,22 @@ db = client["polls"]
 print(client)
 collection = db.polls_question_1
 
-print(db.list_collection_names())
-print(db.polls_question_1.find_one())
+# print(db.list_collection_names())
+# print(db.polls_question_1.find_one())
 
-print('----Availiable Collections----')
-for collection in db.list_collection_names():
-    print('---> '+collection)
-print('')
-print('----Availiable Questions----')
+# print('----Availiable Collections----')
+# for collection in db.list_collection_names():
+#     print('---> '+collection)
+# print('')
+# print('----Availiable Questions----')
 # all_questions = list(db.polls_question_1.find())
 # print(all_questions)
 q_num = 1
 print('')
 
-new_q = {"question_text": "What is your favorite food?", "pub_date": datetime.now()}
+new_q = {"question_text": "----Cats or dogs?----", "pub_date": datetime.now()}
+
+# create new question
 # db.polls_question_1.insert_one(new_q)
 # print('New question added to the database!')
 
@@ -37,7 +39,7 @@ does_new_q_exist_in_db = False
 searched_q = db.polls_question_1.find_one({
     "question_text": new_q['question_text']
 })
-# print(searched_q)
+print(searched_q)
 
 # search by text
 # questionText = db.polls_question_1.find_one({"question_text": 
@@ -50,16 +52,16 @@ searched_q = db.polls_question_1.find_one({
 #                                             })
 # print(questionText1)
 
-questionText2 = db.polls_question_1.find_one({"question_text": 
-                                             {"$regex": "Or", "$options": "i"}
-                                            })
-print(questionText2)
+# questionText2 = db.polls_question_1.find_one({"question_text": 
+#                                              {"$regex": "Or", "$options": "i"}
+#                                             })
+# print(questionText2)
 
 # search by date
-target_date = datetime(2024, 2, 3)
-found_questions = db.polls_question_1.find({"pub_date": { "$gte": target_date, "$lt": target_date + timedelta(days=1)}})
-for question in found_questions:
-    print("---Questions with specified date---", question)
+# target_date = datetime(2024, 2, 3)
+# found_questions = db.polls_question_1.find({"pub_date": { "$gte": target_date, "$lt": target_date + timedelta(days=1)}})
+# for question in found_questions:
+    # print("---Questions with specified date---", question)
 
 # update a question
 # before_update = db.polls_question_1.find({"pub_date": { "$gte": target_date, "$lt": target_date + timedelta(days=1)}})
@@ -71,7 +73,7 @@ for question in found_questions:
 # print("---after---", after_update)
 
 # delete a question by ObjectId
-deleted_question = db.polls_question_1.find_one_and_delete({"_id": "65bec9c56ba224f19961495b"})
+deleted_question = db.polls_question_1.find_one_and_delete({"_id": ObjectId("65bed6c57284f367e43bc890")})
 print(deleted_question)
 
 

@@ -77,10 +77,12 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-MONGO_URI = os.getenv('MONGO_URI')
+# MONGO_URI = os.getenv('MONGO_URI')
 DATABASES = {
     'default': {
-            }  
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mysite',
+    } 
         }
 
 

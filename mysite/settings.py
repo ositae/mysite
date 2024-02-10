@@ -19,7 +19,7 @@ import psycopg2
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 print(DATABASE_URL)
-conn = psycopg2.connect(DATABASE_URL, sslnode='require')
+conn = psycopg2.connect(DATABASE_URL, sslnode='require', port=5432)
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

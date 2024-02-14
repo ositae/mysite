@@ -16,6 +16,10 @@ from dotenv import load_dotenv
 load_dotenv()
 import dj_database_url
 import psycopg2
+from django.forms.renderers import TemplatesSetting
+
+class CustomFormRenderer(TemplatesSetting):
+    form_template_name = "form_snippet_html"
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 # print(DATABASE_URL)
@@ -43,8 +47,8 @@ HOST_PASSWORD = os.getenv('SMTP_PASSWORD')
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_USERNAME = HOST_EMAIL
-EMAIL_PASSWORD = HOST_PASSWORD
+EMAIL_HOST_USER = HOST_EMAIL
+EMAIL_HOST_PASSWORD = HOST_PASSWORD
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 ALLOWED_HOSTS = []

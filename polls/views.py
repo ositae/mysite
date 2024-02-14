@@ -114,7 +114,7 @@ def send_message(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             subject = f"{form.cleaned_data['name']} sent you a message!"
-            message = f"Name: {form.cleaned_data['name']}\n\nSubject: {form.cleaned_data['Subject']}\n\nSender:{form.cleaned_data['sender']}\n\nMessage:\n{form.cleaned_data['message']}"
+            message = f"Name: {form.cleaned_data['name']}\n\nSubject: {form.cleaned_data['subject']}\n\nSender:{form.cleaned_data['sender']}\n\nMessage:\n{form.cleaned_data['message']}"
             sender = form.cleaned_data['sender']
             send_mail(subject, message, sender, [recipientAddress], fail_silently=False)
     else:

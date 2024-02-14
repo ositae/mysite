@@ -1,0 +1,18 @@
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Roboto", Arial;
+}
+
+.w3-sidebar {
+    z-index: 3;
+    width: 300px;
+    top: 50px;
+    bottom: 0;
+    height: inherit;
+}

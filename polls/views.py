@@ -1,17 +1,23 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect 
+from django.http import Http404
 # from pymongo import MongoClient
-# import os
+import os
 from django.template import loader
 from django.utils import timezone
 from .models import Question, Choice
-# from dotenv import load_dotenv
-# load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 # from bson import ObjectId
 from django.urls import reverse
 from django.views import generic
+from .forms import ContactForm
+from django.core.mail import send_mail
+from django.conf import settings
+
+recipientAddress = os.getenv('SMTP_EMAIL')
 
 # print(os.getenv('MONGO_URI'))
 
@@ -102,6 +108,22 @@ from django.views import generic
 # def results(request, question_id):
 #     question = get_object_or_404(Question, pk=question_id)
 #     return render(request, 'polls/results.html', { "question": question })
+
+def send_message(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = f"{form.cleaned_data['name']} sent you a message!"
+            message = f"Name: {form.cleaned_data['name']}\n\nSubject: {form.cleaned_data['Subject']}\n\nSender:{form.cleaned_data['sender']}\n\nMessage:\n{form.cleaned_data['message']}"
+            sender = form.cleaned_data['sender']
+            send_mail(subject, message, sender, [recipientAddress], fail_silently=False)
+    else:
+        form = ContactForm()
+    return render(request, "polls/contact.html", {"form": form})
+
+
+
+
 
 class IndexView(generic.ListView):
     template_name = "polls/index.html"
